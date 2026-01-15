@@ -203,7 +203,7 @@ const DetailsScreen: React.FC<DetailsScreenProps> = ({ pet, onBack, onAdopt, loc
                 loading="lazy"
                 allowFullScreen
                 referrerPolicy="no-referrer-when-downgrade"
-                src={`https://www.google.com/maps/embed/v1/place?key=AIzaSyBFw0Qbyq9zTFTd-tUY6dZWTgaQzuU17R8&q=${encodeURIComponent(pet.location || '123 Greenway Blvd, San Francisco, CA')}&zoom=14`}
+                src={`https://www.google.com/maps/embed/v1/place?key=${import.meta.env.VITE_GOOGLE_MAPS_API_KEY || 'YOUR_GOOGLE_MAPS_API_KEY'}&q=${encodeURIComponent(pet.location || '123 Greenway Blvd, San Francisco, CA')}&zoom=14`}
                 className="absolute inset-0"
               ></iframe>
             </div>
