@@ -1,0 +1,10 @@
+
+{
+  "name": "Pawsitive Adoption",
+  "description": "A high-end, mobile-first pet discovery and adoption platform with AI-powered matching.",
+  "requestFramePermissions": [
+    "camera",
+    "microphone",
+    "geolocation"
+  ]
+}
