@@ -1,293 +1,267 @@
-# Pawsitive Adoption - 宠物领养平台
+# 🐾 Pawsitive Adoption
 
-一个功能完整的宠物领养全栈应用，使用 React + Supabase 构建。
+A full-stack pet adoption platform built with React, TypeScript, and Supabase.
 
-## 功能特性
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Node.js Version](https://img.shields.io/badge/node-%3E%3D18.0.0-brightgreen)](https://nodejs.org/)
+[![React](https://img.shields.io/badge/React-19-blue)](https://reactjs.org/)
 
-- 🐾 **宠物浏览** - 浏览和搜索可领养的宠物
-- ❤️ **收藏功能** - 收藏喜欢的宠物
-- 📝 **申请系统** - 提交领养、寄养和转让申请
-- 💬 **实时聊天** - 与收容所或宠物主人实时沟通
-- 🔐 **用户认证** - 安全的用户注册和登录
-- 📸 **图片上传** - 上传宠物照片
-- 🌍 **多语言支持** - 支持中文、英文和瑞典语
+## ✨ Features
 
-## 技术栈
+- 🐾 **Pet Browsing** - Browse and search for adoptable pets with advanced filtering
+- ❤️ **Favorites** - Save your favorite pets for later
+- 📝 **Application System** - Submit adoption, hosting, and rehoming applications
+- 💬 **Real-time Chat** - Communicate with shelters and pet owners instantly
+- 🔐 **Authentication** - Secure user registration and login (Email, Google, GitHub)
+- 📸 **Image Upload** - Upload and manage pet photos
+- 🗺️ **Maps Integration** - View pet locations with Google Maps
+- 🌍 **Multi-language** - Support for English, Chinese, and Swedish
+- 👤 **Profile Management** - Edit user profiles with avatar upload
+- 📱 **Responsive Design** - Beautiful UI optimized for all devices
 
-### 前端
-- React 19
-- TypeScript
-- Vite
-- Tailwind CSS (通过内联样式)
+## 🛠️ Tech Stack
 
-### 后端
-- Supabase (PostgreSQL 数据库)
-- Supabase Auth (用户认证)
-- Supabase Storage (文件存储)
-- Supabase Realtime (实时消息)
+### Frontend
+- **React 19** - Modern React with hooks
+- **TypeScript** - Type-safe development
+- **Vite** - Lightning-fast build tool
+- **Tailwind CSS** - Utility-first styling
 
-### AI 功能
-- Google Gemini API (宠物描述生成)
+### Backend
+- **Supabase** - PostgreSQL database with real-time capabilities
+- **Supabase Auth** - User authentication and authorization
+- **Supabase Storage** - File and image storage
+- **Supabase Realtime** - Live messaging and updates
 
-## 快速开始
+### AI Integration
+- **Google Gemini API** - AI-powered pet descriptions
 
-### 前置要求
+## 🚀 Quick Start
 
-- Node.js 18+ (推荐使用 Node.js 20+)
-- npm 或 yarn
-- Supabase 账户
+### Prerequisites
 
-### 1. 克隆项目
+- Node.js 18+ (Node.js 20+ recommended)
+- npm or yarn
+- Supabase account ([Sign up here](https://supabase.com))
+- Google Gemini API key (optional, for AI features)
+
+### 1. Clone the Repository
 
 ```bash
-git clone <repository-url>
-cd pawsitive-adoption
+git clone https://github.com/CristinaZhangchan/Pawsitive-Adoption.git
+cd Pawsitive-Adoption
 ```
 
-### 2. 安装依赖
+### 2. Install Dependencies
 
 ```bash
 npm install
 ```
 
-### 3. 设置 Supabase
+### 3. Environment Setup
 
-#### 3.1 创建 Supabase 项目
-
-1. 访问 [Supabase](https://supabase.com) 并创建新项目
-2. 等待项目初始化完成
-
-#### 3.2 运行数据库迁移
-
-1. 在 Supabase 控制台中，进入 **SQL Editor**
-2. 复制 `supabase/migrations/001_initial_schema.sql` 的内容
-3. 粘贴并运行 SQL 脚本
-
-#### 3.3 创建存储桶
-
-1. 在 Supabase 控制台中，进入 **Storage**
-2. 创建一个名为 `pet-images` 的公开存储桶
-3. 设置以下策略：
-   - 允许所有人读取
-   - 允许认证用户上传
-
-### 4. 配置环境变量
-
-复制 `.env.example` 到 `.env.local`:
-
-```bash
-cp .env.example .env.local
-```
-
-编辑 `.env.local` 并填入你的凭据:
+Create a `.env.local` file in the root directory:
 
 ```env
-# Gemini API Key (可选，用于 AI 生成宠物描述)
-GEMINI_API_KEY=your-gemini-api-key
+# Supabase Configuration
+VITE_SUPABASE_URL=your_supabase_project_url
+VITE_SUPABASE_ANON_KEY=your_supabase_anon_key
 
-# Supabase 配置
-VITE_SUPABASE_URL=your-supabase-project-url
-VITE_SUPABASE_ANON_KEY=your-supabase-anon-key
-
-# 仅用于种子数据脚本
-SUPABASE_SERVICE_KEY=your-service-role-key
+# Optional: Google Gemini API (for AI-generated pet descriptions)
+GEMINI_API_KEY=your_gemini_api_key
 ```
 
-**获取 Supabase 凭据:**
-1. 在 Supabase 项目设置中
-2. 进入 **API** 部分
-3. 复制 **Project URL** 和 **anon public** key
+**How to get your Supabase credentials:**
+1. Go to [Supabase Dashboard](https://app.supabase.com)
+2. Select your project
+3. Go to Settings → API
+4. Copy the `Project URL` and `anon public` key
 
-### 5. 填充初始数据
+### 4. Database Setup
 
-运行种子脚本来填充示例数据:
+#### Option A: Using Supabase Dashboard (Recommended)
+
+1. Go to your Supabase project dashboard
+2. Navigate to **SQL Editor**
+3. Run the cleanup script first (if tables already exist):
+   ```sql
+   -- Copy and run the content from supabase/migrations/000_cleanup.sql
+   ```
+4. Then run the initial schema:
+   ```sql
+   -- Copy and run the content from supabase/migrations/001_initial_schema.sql
+   ```
+
+#### Option B: Using Supabase CLI
+
+```bash
+# Install Supabase CLI
+npm install -g supabase
+
+# Login to Supabase
+supabase login
+
+# Link to your project
+supabase link --project-ref your-project-ref
+
+# Run migrations
+supabase db push
+```
+
+### 5. Seed Sample Data (Optional)
 
 ```bash
 npm run seed
 ```
 
-这将创建:
-- 测试用户账户
-- 示例宠物
-- 演示对话
+This will populate your database with sample pets and conversations.
 
-**演示账户:**
-- 邮箱: `demo@pawsitive.com`
-- 密码: `demo123456`
-
-### 6. 启动开发服务器
+### 6. Start Development Server
 
 ```bash
 npm run dev
 ```
 
-应用将在 `http://localhost:3000` 运行
+The app will be available at `http://localhost:5173`
 
-## 项目结构
+## 📁 Project Structure
 
 ```
 pawsitive-adoption/
-├── services/              # 后端服务层
-│   ├── supabaseClient.ts  # Supabase 客户端配置
-│   ├── authService.ts     # 认证服务
-│   ├── petsService.ts     # 宠物 CRUD 操作
-│   ├── favoritesService.ts # 收藏功能
-│   ├── applicationsService.ts # 申请管理
-│   ├── messagesService.ts # 聊天和消息
-│   ├── storageService.ts  # 文件上传
-│   └── geminiService.ts   # AI 描述生成
-├── screens/               # 应用页面
-│   ├── WelcomeScreen.tsx
-│   ├── HomeScreen.tsx
-│   ├── ListingsScreen.tsx
-│   ├── DetailsScreen.tsx
-│   ├── ApplicationFormScreen.tsx
-│   ├── MessagesScreen.tsx
-│   ├── ChatScreen.tsx
-│   ├── ProfileScreen.tsx
-│   └── ServicesScreen.tsx
-├── components/            # 可复用组件
-│   └── NavBar.tsx
+├── screens/              # React screen components
+│   ├── WelcomeScreen.tsx    # Onboarding & auth
+│   ├── HomeScreen.tsx       # Pet browsing
+│   ├── DetailsScreen.tsx    # Pet details
+│   ├── ListingsScreen.tsx   # Pet listings
+│   ├── MessagesScreen.tsx   # Chat list
+│   ├── ChatScreen.tsx       # Individual chat
+│   ├── ProfileScreen.tsx    # User profile
+│   ├── ServicesScreen.tsx   # Services info
+│   └── ApplicationFormScreen.tsx  # Application forms
+├── services/            # API and backend services
+│   ├── supabaseClient.ts    # Supabase configuration
+│   ├── authService.ts       # Authentication
+│   ├── petsService.ts       # Pet CRUD operations
+│   ├── favoritesService.ts  # Favorites management
+│   ├── applicationsService.ts # Applications
+│   ├── messagesService.ts   # Real-time messaging
+│   ├── storageService.ts    # File uploads
+│   └── geminiService.ts     # AI descriptions
 ├── supabase/
-│   └── migrations/        # 数据库迁移文件
+│   └── migrations/      # Database migrations
+│       ├── 000_cleanup.sql
 │       └── 001_initial_schema.sql
-├── scripts/
-│   └── seed-data.ts       # 数据库种子脚本
-├── types.ts               # TypeScript 类型定义
-├── constants.tsx          # 常量和静态数据
-├── translations.ts        # 多语言翻译
-└── App.tsx                # 主应用组件
+├── components/          # Reusable components
+├── translations.ts      # i18n translations
+├── types.ts            # TypeScript types
+└── constants.tsx       # App constants
+
 ```
 
-## 数据库架构
+## 🗄️ Database Schema
 
-### 核心表
+The application uses the following main tables:
 
-- **profiles** - 用户配置文件
-- **pets** - 宠物信息
-- **pet_images** - 宠物图片
-- **favorites** - 用户收藏
-- **applications** - 领养/寄养/转让申请
-- **conversations** - 对话
-- **messages** - 聊天消息
+- **profiles** - User profile information
+- **pets** - Pet listings (adoption/hosting/rehoming)
+- **pet_images** - Multiple images per pet
+- **favorites** - User's favorited pets
+- **applications** - Adoption/hosting/rehoming applications
+- **conversations** - Chat conversations
+- **messages** - Individual chat messages
 
-### 安全性
+See `supabase/migrations/001_initial_schema.sql` for the complete schema.
 
-- 所有表都启用了 Row Level Security (RLS)
-- 用户只能访问自己的数据
-- 宠物列表对所有人公开
-- 消息仅对对话参与者可见
+## 🔐 Authentication
 
-## API 服务
+The app supports multiple authentication methods:
 
-### 认证服务 (`authService.ts`)
-- 用户注册和登录
-- OAuth 登录 (Google, GitHub)
-- 密码重置
-- 个人资料管理
+- **Email/Password** - Traditional email-based auth
+- **Google OAuth** - Sign in with Google
+- **GitHub OAuth** - Sign in with GitHub
+- **Guest Mode** - Browse without authentication
 
-### 宠物服务 (`petsService.ts`)
-- 获取宠物列表（支持筛选和分页）
-- 获取单个宠物详情
-- 创建/更新/删除宠物
+## 🌐 Deployment
 
-### 收藏服务 (`favoritesService.ts`)
-- 添加/移除收藏
-- 获取用户收藏列表
-- 检查收藏状态
+### Deploy to Vercel
 
-### 申请服务 (`applicationsService.ts`)
-- 提交领养申请
-- 提交寄养注册
-- 提交转让申请
-- 查看申请历史
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/CristinaZhangchan/Pawsitive-Adoption)
 
-### 消息服务 (`messagesService.ts`)
-- 创建对话
-- 发送/接收消息
-- 实时消息订阅
-- 标记消息为已读
-
-### 存储服务 (`storageService.ts`)
-- 上传图片
-- 图片压缩
-- 删除文件
-
-## 开发指南
-
-### 运行开发服务器
-
-```bash
-npm run dev
-```
-
-### 构建生产版本
-
-```bash
-npm run build
-```
-
-### 预览生产构建
-
-```bash
-npm run preview
-```
-
-### 重新填充数据库
-
-```bash
-npm run seed
-```
-
-## 部署
-
-### Vercel 部署
-
-1. 将代码推送到 GitHub
-2. 在 Vercel 中导入项目
-3. 添加环境变量:
+1. Click the button above or go to [Vercel](https://vercel.com)
+2. Import your GitHub repository
+3. Add environment variables:
    - `VITE_SUPABASE_URL`
    - `VITE_SUPABASE_ANON_KEY`
-   - `GEMINI_API_KEY` (可选)
-4. 部署
+   - `GEMINI_API_KEY` (optional)
+4. Deploy!
 
-### Netlify 部署
+### Deploy to Netlify
 
-1. 将代码推送到 GitHub
-2. 在 Netlify 中导入项目
-3. 构建命令: `npm run build`
-4. 发布目录: `dist`
-5. 添加环境变量
+1. Go to [Netlify](https://netlify.com)
+2. Click "Add new site" → "Import an existing project"
+3. Connect your GitHub repository
+4. Build settings:
+   - Build command: `npm run build`
+   - Publish directory: `dist`
+5. Add environment variables in Site settings
+6. Deploy!
 
-## 故障排除
+## 📱 Features Showcase
 
-### Supabase 连接错误
+### Authentication & Onboarding
+- Beautiful welcome screens with image carousel
+- Multiple sign-in options
+- Guest mode for browsing
 
-确保:
-- `.env.local` 中的 URL 和密钥正确
-- Supabase 项目正在运行
-- 数据库迁移已执行
+### Pet Discovery
+- Advanced search and filtering
+- Location-based browsing
+- Interactive map integration
+- Detailed pet profiles with AI-generated descriptions
 
-### 认证问题
+### Communication
+- Real-time messaging
+- File and photo attachments
+- Conversation history
 
-- 检查 Supabase Auth 设置
-- 确认邮箱确认设置
-- 验证 RLS 策略
+### Application Process
+- Multi-step application forms
+- Photo uploads
+- Status tracking
 
-### 实时消息不工作
+### Profile Management
+- Avatar upload
+- Personal information editing
+- Application history
+- Favorites management
 
-- 确保 Supabase Realtime 已启用
-- 检查浏览器控制台错误
-- 验证 WebSocket 连接
+## 🤝 Contributing
 
-## 贡献
+Contributions are welcome! Please feel free to submit a Pull Request.
 
-欢迎贡献！请随时提交 Pull Request。
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
 
-## 许可证
+## 📄 License
 
-MIT License
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## 支持
+## 🙏 Acknowledgments
 
-如有问题，请创建 GitHub Issue 或联系支持团队。
+- [Supabase](https://supabase.com) - Backend infrastructure
+- [Google Gemini](https://ai.google.dev/) - AI-powered descriptions
+- [Unsplash](https://unsplash.com) - Sample pet images
+- [Material Symbols](https://fonts.google.com/icons) - Icon library
+
+## 📧 Contact
+
+Cristina Zhang - [@CristinaZhangchan](https://github.com/CristinaZhangchan)
+
+Project Link: [https://github.com/CristinaZhangchan/Pawsitive-Adoption](https://github.com/CristinaZhangchan/Pawsitive-Adoption)
+
+---
+
+Made with ❤️ for pets and their future families
